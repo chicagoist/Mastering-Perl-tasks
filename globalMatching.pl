@@ -29,18 +29,11 @@ use Bundle::Camelcade; # for Intellij IDEA
 use YAML;
 use DDP;
 
-use ReadableRegexes;
+use GlobalMatching;
 
-my $regexRead = ReadableRegexes->new();
-#$regexRead->isbn('0-596-10206-2') && $regexRead->myRedex;
-$regexRead->myRedex('0-596-10206-2');
-foreach my $key (sort keys %$regexRead) {
-    say "$key => $$regexRead{$key}";
-}
-
-unless (!$regexRead->isbn) {
-    if ($regexRead->isbn =~ $regexRead->isbn_regex()) {
-        print "Matched!\n";
-    }
-}
-print $regexRead->isbn_regex();
+my $globalMatching = GlobalMatching->new();
+$globalMatching->word("Just another Perl hacker,");
+my @words;
+@words = $globalMatching->word =~ /(\S+)/g; # "Just" "another" "Perl" "hacker,"
+p @words;
+say @words;
