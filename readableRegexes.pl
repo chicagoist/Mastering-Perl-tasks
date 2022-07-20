@@ -32,10 +32,14 @@ use DDP;
 use ReadableRegexes;
 
 my $regexRead = ReadableRegexes->new();
-$regexRead->isbn('0-596-10206-2') && $regexRead->myRedex;
+#$regexRead->isbn('0-596-10206-2') && $regexRead->myRedex;
+$regexRead->myRedex('0-596-10206-2');
+foreach my $key (sort keys %$regexRead) {
+    say "$key => $$regexRead{$key}";
+}
 
-#$regexRead->myRedex('0-596-10206-2');
-print %$regexRead;
-
-
-
+unless (!$regexRead->isbn) {
+    if ($regexRead->isbn =~ $regexRead->isbn_regex()) {
+        print "Matched!\n";
+    }
+}
